@@ -101,6 +101,8 @@ h3 { font-size: 15px; font-weight: 700; margin: 0; }
 
 p { margin: 0 0 20px; }
 p:last-child { margin-bottom: 0; }
+.lead { font-size: 22px; line-height: 1.35; letter-spacing: -0.02em; margin-bottom: 28px; }
+.k { display: inline-block; width: 10ch; color: var(--faded); }
 
 .entry { margin-bottom: 40px; }
 .entry:last-child { margin-bottom: 0; }
