@@ -13,7 +13,7 @@
   --accent: #c9a46b; /* Messing wie die Gravuren auf den Modulen */
 }
 @media (prefers-color-scheme: light) {
-  :root {
+  :root:not([data-theme="dark"]) {
     --ink: #1d1b17;
     --body: #3f3b34;
     --faded: #655f55;
@@ -21,6 +21,22 @@
     --rule: #d8d2c4;
     --accent: #9a6f2e;
   }
+}
+:root[data-theme="light"] {
+  --ink: #1d1b17;
+  --body: #3f3b34;
+  --faded: #655f55;
+  --paper: #f3efe6;
+  --rule: #d8d2c4;
+  --accent: #9a6f2e;
+}
+:root[data-theme="dark"] {
+  --ink: #e9e4da;
+  --body: #c2bdb2;
+  --faded: #a39e93;
+  --paper: #0d0d0c;
+  --rule: #2a2926;
+  --accent: #c9a46b;
 }
 
 * { box-sizing: border-box; }
@@ -54,6 +70,12 @@ a:hover { text-decoration-color: var(--accent); }
 .nav a { text-decoration: none; }
 .nav a:hover { color: var(--accent); }
 .lang, .lang a { color: var(--faded); }
+.theme { display: none; color: var(--faded); }
+:root[data-theme] .theme { display: list-item; list-style: none; }
+.theme button { all: unset; cursor: pointer; }
+.theme button:hover { color: var(--accent); }
+.theme button:focus-visible { outline: 1px dashed var(--accent); outline-offset: 2px; }
+.theme button[aria-pressed="true"] { color: var(--ink); }
 .lang a[aria-current] { color: var(--ink); }
 
 /* Erstes Bild: Name groß, darüber eine Zeile zur Einordnung */
@@ -134,7 +156,8 @@ footer {
 }
 
 @media (max-width: 760px) {
-  .nav li:not(.lang) { display: none; }
+  .nav { gap: 24px; }
+  .nav li:not(.lang):not(.theme) { display: none; }
   .hero { min-height: 70vh; margin-bottom: 72px; }
   .label { margin-left: 0; }
   .links { text-align: left; }
@@ -146,6 +169,7 @@ footer {
 }
 
 @media print {
+  :root, :root[data-theme] { --ink: #000; --body: #000; --faded: #444; --paper: #fff; --rule: #bbb; --accent: #444; }
   body { background: #fff; color: #000; }
   .top, footer { display: none; }
   .hero { min-height: 0; margin-bottom: 32px; }
