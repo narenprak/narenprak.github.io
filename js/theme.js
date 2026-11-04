@@ -6,18 +6,17 @@
   var system = window.matchMedia && matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
 
   function sync() {
-    var current = root.getAttribute("data-theme");
-    document.querySelectorAll("[data-set-theme]").forEach(function (b) {
-      b.setAttribute("aria-pressed", b.getAttribute("data-set-theme") === current ? "true" : "false");
+    var dark = root.getAttribute("data-theme") === "dark";
+    document.querySelectorAll("[data-toggle-theme]").forEach(function (b) {
+      b.setAttribute("aria-checked", dark ? "true" : "false");
     });
   }
 
   root.setAttribute("data-theme", stored === "light" || stored === "dark" ? stored : system);
 
   document.addEventListener("click", function (e) {
-    var b = e.target.closest && e.target.closest("[data-set-theme]");
-    if (!b) return;
-    var next = b.getAttribute("data-set-theme");
+    if (!e.target.closest || !e.target.closest("[data-toggle-theme]")) return;
+    var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
     root.setAttribute("data-theme", next);
     try { localStorage.setItem("theme", next); } catch (err) {}
     sync();
